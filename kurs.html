@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+     <script>
+ let arr = [];
+console.log(arr);
+
+let years = [];
+for (let index = 1990; index <= 2020; index++) {
+    years.push(index);
+}
+
+for (let index = 1; index <= 30; index++) {
+    arr.push({
+        arrName:`Elements${index}`,
+        description:` Description${index}`,
+        price: Math.floor(Math.random() *arr.length + 1) * 10,
+        year: years[Math.floor(Math.random() * years.length)]
+    });
+}
+
+while (true) {
+    let input = prompt(`
+    STOP,DELETE,CHANGE,ADD,SORT,READ
+    `);
+
+    if (input === 'STOP') {
+        break;
+    } else if (input === 'DELETE') {
+        let deletedElement = prompt('Write name of element that you want to delete');
+        let detectedElement = arr.findIndex((item) => item.arrName === deletedElement);
+        console.log(detectedElement);
+        arr.splice(detectedElement, 1);
+        console.log(arr);
+        break;
+    } else if (input === 'CHANGE') {
+        let changedElement = prompt('Write name of element that you want to change');
+        let detectedElement = arr.findIndex((item) => item.arrName === changedElement);
+        let changedItem = prompt('Write information of element that you want to change');
+        if (changedItem === 'price') {
+            let price = prompt('Write price of element that you want to change');
+            arr[detectedElement].price = price;
+            console.log(arr);
+        } else if (changedItem === 'description') {
+            let description = prompt('Write description of element that you want to change');
+            arr[detectedElement].description = description;
+            console.log(arr);
+        } else {
+            console.log('wrong');
+        }
+    } else if (input === 'ADD') {
+        let addedElement = prompt('Write information of element that you want to add Example "name description price"').split(' ');
+        let el = arr.some((item) => item.arrName === addedElement[0]);
+        if (!el) {
+            arr.push({
+                arrName: addedElement[0],
+                description: addedElement[1],
+                price: addedElement[2]
+            });
+        } else {
+            alert('array has this element');
+        }
+        console.log(arr);
+    } else if (input === 'READ') {
+        arr.forEach((item) => {
+            console.log(item.arrName, item.description, item.price);
+        });
+    } else if (input === 'SORT') {
+        let direction = prompt('Write how do you want to sort array: increase or decrease');
+        if (direction === 'increase') {
+            arr.sort((a, b) => a.price - b.price);
+        } else if (direction === 'decrease') {
+            arr.sort((a, b) => b.price - a.price);
+        }
+        arr.forEach((item) => {
+            console.log(item.arrName, item.description, item.price);
+        });
+    }
+}
+
+
+     </script>
+</body>
+</html>
